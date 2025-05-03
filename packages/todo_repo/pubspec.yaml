@@ -1,0 +1,7 @@
+name : todo_repo
+environment:
+  sdk: '^3.7.0'
+dependencies:
+  todo_db:
+    path : ../todo_db
+  uuid: ^4.5.1

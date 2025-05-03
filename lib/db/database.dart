@@ -33,6 +33,20 @@ class TodoDb {
     );
   }
 
+  Future<List<Task>> loadPendingTask() async {
+    Database database = await db;
+    return await database
+        .query('TASK', where: 'ISCOMPLETED = ?', whereArgs: [0])
+        .then((value) => value.map((x) => Task.fromMap(x)).toList());
+  }
+
+  Future<List<Task>> loadCompletedTask() async {
+    Database database = await db;
+    return await database
+        .query('TASK', where: 'ISCOMPLETED = ?', whereArgs: [1])
+        .then((value) => value.map((x) => Task.fromMap(x)).toList());
+  }
+
   Future<void> deleteTask(Task todo) async {
     Database database = await db;
     await database.delete('TASK', where: 'id = ?', whereArgs: [todo.id]);
