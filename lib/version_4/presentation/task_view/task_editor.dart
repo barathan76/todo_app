@@ -64,6 +64,7 @@ class _TaskEditorState extends State<TaskEditor> {
                     onChanged: (value) => titleController.text,
                     decoration: InputDecoration(
                       label: Text("Title"),
+                      hintText: 'type title',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -113,6 +114,12 @@ class _TaskEditorState extends State<TaskEditor> {
               ],
             ),
             SizedBox(height: 10),
+            Text(
+              "Description",
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            ),
+
+            SizedBox(height: 5),
             Expanded(
               child: TextField(
                 onChanged: (value) => descConroller.text,
@@ -120,7 +127,8 @@ class _TaskEditorState extends State<TaskEditor> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  label: Text('Description'),
+
+                  hintText: 'type description',
                 ),
                 keyboardType: TextInputType.multiline,
                 maxLines: 100,

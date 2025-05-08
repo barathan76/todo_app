@@ -52,11 +52,15 @@ class TodoDatabase extends TodoDb {
   @override
   Future<List<Map<String, dynamic>>> loadCompletedTask() async {
     Database database = await _db;
-    return await database.query(
-      'TASK',
-      where: 'ISCOMPLETED = ?',
-      whereArgs: [1],
-    );
+    try {
+      return await database.query(
+        'TASK',
+        where: 'ISCOMPLETED = ?',
+        whereArgs: [1],
+      );
+    } catch (e) {
+      throw Error();
+    }
   }
 
   @override

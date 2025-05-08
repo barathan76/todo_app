@@ -5,16 +5,17 @@ import 'package:todo_app/version_4/bloc/pending_task_bloc/pending_task_bloc.dart
 import 'package:todo_app/version_4/presentation/task_view/task_editor.dart';
 
 class CreateTask extends StatelessWidget {
-  const CreateTask({super.key});
-
+  const CreateTask({super.key, required this.onSave});
+  final void Function() onSave;
   @override
   Widget build(BuildContext context) {
     return TaskEditor(
-      title: "Enter title",
-      desc: "Enter description",
+      title: "",
+      desc: "",
       date: DateTime.now(),
       isImp: false,
       onSave: (Task task) {
+        onSave();
         BlocProvider.of<PendingTaskBloc>(
           context,
         ).add(AddPendingTask(task: task));

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/version_4/presentation/task_tile/completed_task_tile.dart';
 import 'package:todo_repo/todo_repo.dart';
 import 'package:todo_app/version_4/bloc/completed_task_bloc/completed_task_bloc.dart';
-import 'package:todo_app/version_4/presentation/widgets/snackbar_indicator.dart';
-import 'package:todo_app/version_4/presentation/widgets/tasktile.dart';
-import 'package:todo_app/version_4/presentation/widgets/dismissableContainer.dart';
 
 class CompletedTaskList extends StatelessWidget {
   const CompletedTaskList({super.key});
@@ -20,26 +18,16 @@ class CompletedTaskList extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         }
         if (state is CompletedTaskLoaded || state is CompletedTaskUpdated) {
-          List<Task> completedTask = state.completedTask;
+          List<Task> completedTasks = state.completedTask;
+          if (completedTasks.isEmpty) {
+            return Center(child: Text("No Completed Tasks"));
+          }
           return ListView.builder(
-            itemCount: completedTask.length,
+            itemCount: completedTasks.length,
             itemBuilder: (BuildContext context, int index) {
-              return Dismissible(
-                key: GlobalKey(),
-                background: dismissableContainer(color: Colors.red),
-                onDismissed: (direction) {
-                  final bloc = context.read<CompletedTaskBloc>();
-                  Task task = completedTask[index];
-                  bloc.add(DeleteTask(task: task));
-                  final scaffoldMessenger = ScaffoldMessenger.of(context);
-                  scaffoldMessenger.clearSnackBars();
-                  scaffoldMessenger.showSnackBar(
-                    snackBarIndicator("Delet", () {
-                      bloc.add(InsertTask(task: task, index: index));
-                    }, context),
-                  );
-                },
-                child: TaskTile(task: completedTask[index]),
+              return CompletedTaskTile(
+                completedTasks: completedTasks,
+                index: index,
               );
             },
           );

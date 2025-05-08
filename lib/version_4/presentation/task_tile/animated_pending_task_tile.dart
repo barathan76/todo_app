@@ -13,11 +13,11 @@ class AnimatedPendingTaskTile extends StatelessWidget {
     super.key,
     required this.pendingTasks,
     required this.index,
-    required this.insertTask,
+    required this.listKey,
   });
   final List<Task> pendingTasks;
   final int index;
-  final void Function(int index) insertTask;
+  final GlobalKey<AnimatedListState> listKey;
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +31,22 @@ class AnimatedPendingTaskTile extends StatelessWidget {
         final messenger = ScaffoldMessenger.of(context);
         Task task = pendingTasks[index];
         if (direction == DismissDirection.startToEnd) {
+          deleteTask(task);
           pendingTaskBloc.add(RemovePendingTask(task: task));
           completedTaskBloc.add(AddTask(task: task));
           messenger.clearSnackBars();
           messenger.showSnackBar(
-            snackBarIndicator("Completed", () {
+            snackBarIndicator("Complet", () {
               completedTaskBloc.add(RemoveTask(task: task));
               pendingTaskBloc.add(InsertPendingTask(task: task, index: index));
             }, context),
           );
         } else {
+          deleteTask(task);
           pendingTaskBloc.add(RemovePendingTask(task: task));
           messenger.clearSnackBars();
           messenger.showSnackBar(
-            snackBarIndicator("Deleted", () {
+            snackBarIndicator("Delet", () {
               pendingTaskBloc.add(InsertPendingTask(task: task, index: index));
             }, context),
           );
@@ -61,5 +63,21 @@ class AnimatedPendingTaskTile extends StatelessWidget {
         child: TaskTile(task: pendingTasks[index]),
       ),
     );
+  }
+
+  void insertTask() {
+    listKey.currentState!.insertItem(
+      index,
+      duration: Duration(milliseconds: 500),
+    );
+    print("inserted");
+  }
+
+  void deleteTask(Task task) {
+    listKey.currentState!.removeItem(
+      index,
+      (context, animation) => Container(),
+    );
+    print("deleted");
   }
 }

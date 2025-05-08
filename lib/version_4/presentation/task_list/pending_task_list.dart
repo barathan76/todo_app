@@ -19,6 +19,9 @@ class PendingTaskList extends StatelessWidget {
 
         if (state is PendingTaskLoaded || state is PendingTaskUpdated) {
           List<Task> pendingTasks = state.pendingTask;
+          if (pendingTasks.isEmpty) {
+            return Center(child: Text("No Pending Tasks"));
+          }
           return ListView.builder(
             itemCount: pendingTasks.length,
             itemBuilder: (BuildContext context, int index) {

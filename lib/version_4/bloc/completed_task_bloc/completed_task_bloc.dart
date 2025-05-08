@@ -5,7 +5,7 @@ part 'completed_task_event.dart';
 part 'completed_task_state.dart';
 
 class CompletedTaskBloc extends Bloc<CompletedTaskEvent, CompletedTaskState> {
-  // TodoRepo todoRepo = TodoRepository();
+  TodoRepo todoRepo = TodoRepository();
   CompletedTaskBloc() : super(CompletedTaskInitial()) {
     on<LoadTask>((event, emit) async {
       print("called");

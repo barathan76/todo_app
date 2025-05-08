@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/version_4/presentation/task_list/animated_task_list.dart';
-import 'package:todo_app/version_4/presentation/task_list/completed_task_list.dart';
-import 'package:todo_app/version_4/presentation/task_list/pending_task_list.dart';
+import 'package:todo_app/version_4/presentation/task_list/animated_completed_task_list.dart';
+import 'package:todo_app/version_4/presentation/task_list/animated_pending_task_list.dart';
+// import 'package:todo_app/version_4/presentation/task_list/completed_task_list.dart';
+// import 'package:todo_app/version_4/presentation/task_list/pending_task_list.dart';
 import 'package:todo_app/version_4/presentation/task_view/create_task.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -32,10 +33,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        body: TabBarView(children: [PendingTaskList(), CompletedTaskList()]),
+        body: TabBarView(
+          children: [AnimatedPendingTaskList(), AnimatedCompletedTaskList()],
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            showDialog(context: context, builder: (context) => CreateTask());
+            showDialog(
+              context: context,
+              builder: (context) => CreateTask(onSave: () {}),
+            );
           },
           child: Icon(Icons.add),
         ),

@@ -23,7 +23,7 @@ class Task {
   Map<String, dynamic> toMap() => {
     'ID': id,
     'TITLE': title,
-    'DUEDATE': dueDate.toString(),
+    'DUEDATE': dueDate!.toString(),
     'DESC': description,
     'IMPORTANT': isImportant ? 1 : 0,
     'ISCOMPLETED': isCompleted ? 1 : 0,
