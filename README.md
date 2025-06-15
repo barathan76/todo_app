@@ -1,6 +1,6 @@
 # ✅ Todo App
 
-A simple and intuitive Flutter Todo application that helps you manage your tasks efficiently. Add tasks, mark them as important, edit or delete them, and track your progress with ease.
+A simple and intuitive Flutter Todo application that helps you manage your tasks efficiently. Add tasks, mark them as important, edit or delete them, and track your progress with ease. All task data is stored locally using the `sqflite` package.
 
 ## ✨ Features
 
@@ -10,6 +10,7 @@ A simple and intuitive Flutter Todo application that helps you manage your tasks
 - ✅ Swipe **left** on a task in **Pending Tasks** to mark it as **Completed**
 - 🗑️ Swipe **right** on a task in **Pending Tasks** to **delete**
 - 🔁 Swipe **either direction** on a task in **Completed Tasks** to **remove** it
+- 🧠 Persistent local storage using `sqflite` (SQLite)
 
 ## 📱 Screenshots
 
@@ -31,7 +32,7 @@ A simple and intuitive Flutter Todo application that helps you manage your tasks
       <img src="ss/pending.png" style="max-width: 100%; width: 300px;" alt="Pending Tasks"/><br/>
       <i>Swipe left to complete, right to delete</i>
     </td>
-     <td align="center" colspan="2">
+    <td align="center">
       <img src="ss/completed.png" style="max-width: 100%; width: 300px;" alt="Completed Tasks"/><br/>
       <i>Swipe in any direction to remove completed tasks</i>
     </td>
@@ -42,9 +43,15 @@ A simple and intuitive Flutter Todo application that helps you manage your tasks
 
 ## 🛠️ Tech Stack
 
-- **Flutter** (Stateful & Stateless widgets)
+- **Flutter** (UI framework)
 - **Dart**
-- Local state management (e.g., `setState`, or can be updated for Provider/BLoC)
+- **sqflite** (local SQLite storage)
+- **path_provider** (for locating database path)
+
+## 🗃️ Local Database
+
+- Tasks are stored persistently using `sqflite`.
+- Schema includes fields for: `id`, `title`, `description`, `isImportant`, `isCompleted`, `timestamp`.
 
 ## 🚀 Getting Started
 
