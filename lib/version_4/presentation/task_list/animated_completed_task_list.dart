@@ -14,7 +14,6 @@ class AnimatedCompletedTaskList extends StatefulWidget {
 
 class _AnimatedCompletedTaskListState extends State<AnimatedCompletedTaskList> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-  List<Task> completedTasks = [];
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CompletedTaskBloc, CompletedTaskState>(
@@ -26,7 +25,7 @@ class _AnimatedCompletedTaskListState extends State<AnimatedCompletedTaskList> {
           return Center(child: CircularProgressIndicator());
         }
         if (state is CompletedTaskLoaded || state is CompletedTaskUpdated) {
-          completedTasks = state.completedTask;
+          List<Task> completedTasks = state.completedTask;
           if (completedTasks.isEmpty) {
             return Center(child: Text("No Completed Tasks"));
           }

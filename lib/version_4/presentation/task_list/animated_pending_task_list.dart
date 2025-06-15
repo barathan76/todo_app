@@ -14,6 +14,7 @@ class AnimatedPendingTaskList extends StatefulWidget {
 class _AnimatedPendingTaskListState extends State<AnimatedPendingTaskList> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   List<Task> pendingTasks = [];
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<PendingTaskBloc, PendingTaskState>(
       listener: (context, state) {
@@ -27,12 +28,13 @@ class _AnimatedPendingTaskListState extends State<AnimatedPendingTaskList> {
                   .where((entry) => !pendingTasks.contains(entry.value))
                   .map((entry) => entry.key)
                   .toList();
-          pendingTasks = currentTasks;
+
           if (_listKey.currentState != null) {
             for (int i in newIndexes) {
               _listKey.currentState!.insertItem(i);
             }
           }
+          pendingTasks = currentTasks;
         }
       },
       builder: (context, state) {

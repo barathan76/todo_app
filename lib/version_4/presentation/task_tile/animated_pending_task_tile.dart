@@ -76,7 +76,8 @@ class AnimatedPendingTaskTile extends StatelessWidget {
   void deleteTask(Task task) {
     listKey.currentState!.removeItem(
       index,
-      (context, animation) => Container(),
+      (context, animation) =>
+          SizeTransition(sizeFactor: animation, child: Container()),
     );
     print("deleted");
   }
